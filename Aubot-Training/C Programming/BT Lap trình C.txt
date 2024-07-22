@@ -1,0 +1,28 @@
+Bài 1: Tạo thư viện quản lý thông số hoạt động của Agv bao gồm mã phiên bản ( ví dụ mã AB2021, AB2022, AB2023, AB2024,...), dung lượng pin, tốc độ hiện tại, mã RFID.
+Thư viện cung cấp các hàm cho phép khởi tạo giá trị ban đầu của Agv, thay đổi các giá trị của các trường dữ liệu của Agv
+Tạo 1 mảng 10 Agv để quản lý, hãy viết hàm kiểm tra trong 10 Agv đó có những chiếc nào đủ điều kiện đi không đường từ?
+Biết rằng để đi không đường từ, mã phiên bản phải lớn hơn hoặc bằng AB2023, dung lượng pin > 35, tốc độ hiện tại từ 20 - 25 m/phút, mã RFID là IMUS.
+
+Bài 2: Dữ liệu truyền thông có cấu trúc frame như sau:
+		Byte đầu frame  | Byte chứa chiều dài dữ liệu 	| Dữ liệu ... 						| Byte kết thúc frame
+Ví dụ: 	0x98			| 0x02							| 0xAB	| Ox02						| 0x99
+Ví dụ: 	0x98			| 0x04							| 0x01	| Ox05 | 0x0C | 0xAA		| 0x99
+
+Từ giá trị ở Byte chứa chiều dài dữ liệu, hãy cấp phát bộ nhớ cho mảng lưu trữ giá trị 
+của dữ liệu trong frame truyền thông và copy giá trị trong frame vào mảng được cấp phát 
+đó.
+Sau đó viết hàm tính ra giá trị CheckSum từ những giá trị nằm trong mảng dữ liệu
+* Lưu ý có nhiều cách tính CheckSum, tùy chọn cách tính.
+
+Các frame nhận được:
+|0x98|0x05|0x12||0x01||0x06||0xAC||0x04||0x99|
+|0x98|0x03|0x02||0x15||0x1A||0x99|
+|0x98|0x08|0x08||0x11||0x10||0x00||0x09||0x11||0xAA||0xBB||0x99|
+
+Bài 3: Để cấu hình địa chỉ IP tĩnh cho đầu đọc UHF RFID xe hàng, ta cần nhận dữ liệu chuỗi IP nhập từ phần mềm cấu hình trên máy tính.
+Dữ liệu nhận được thông qua UART có dạng VD: "192.168.1.10" ở dạng chuỗi ký tự.
+Tuy nhân, hàm cấu hình ESP32 cung cấp cần truyền địa chỉ IP theo hàm: getStaticIP(uint8_t a, uint8_t b, uint8_t c, uint8_t d);
+Để sử dụng, ta cần nhập như sau: getStaticIP(192, 168, 1, 10);
+
+Mục tiêu là cần tách chuỗi "192.168.1.10" thành các giá trị số nguyên 192, số 168, số 1 và số 10 để truyền vào hàm.
+Viết chương trình tách chuỗi phục vị yêu cầu trên.
