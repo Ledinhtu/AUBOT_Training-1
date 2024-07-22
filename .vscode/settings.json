@@ -1,7 +1,0 @@
-{
-    "files.associations": {
-        "agv.h": "c",
-        "stdint.h": "c",
-        "stdio.h": "c"
-    }
-}
