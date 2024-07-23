@@ -1,7 +1,16 @@
 # Checksum Algorithm
 
-## Introduction
-- Error correction codes:
+- Reference:
+    1. [Cyclic Redundancy Check Computation: An Implementation Using the TMS320C54x](https://www.ti.com/lit/an/spra530/spra530.pdf?ts=1721705653636&ref_url=https%253A%252F%252Fwww.google.com%252F)
+
+
+## 1. Cyclic Redundancy Check (CRC)
+- Reference:
+    1. [Cyclic Redundancy Check Computation: An Implementation Using the TMS320C54x](https://www.ti.com/lit/an/spra530/spra530.pdf?ts=1721705653636&ref_url=https%253A%252F%252Fwww.google.com%252F)
+
+### 1.1. Introduction
+
+- **Error correction codes**:
     - Cung cấp phương tiện để phát hiện và sửa lỗi do kênh truyền gây ra.
     - Gồm 2 loại chính là:
         1. **Block codes**
@@ -68,7 +77,7 @@
 
                     - Polynomal này được chọn để làm ước số của `x^n +1` để một *cyclic shift* của một *code vector* là một *code vector* khác.
 
-                    - Mội messeage polynomial `m_i(x)` có thể được map tới một *code word polynomial*:
+                    - Mội messeage polynomial `m_i(x)` có thể được map tới một *code word polynomial* `c(x)`:
 
                         ```systematic form
 
@@ -76,12 +85,12 @@
                         ```
                         - `r_i(x)` là phần dư của phép chia `m_i(x)*x^(n-k)` cho `g(x)`.
 
-                - Bước đầu tiên của decoding là xác định xem *receive word* có phải là bội của `g(x)` hay không:
-                    - Thực hiện bằng cách chia *receive work* với `g(x)` và kiểm tra phần dư.
+                - Bước đầu tiên của decoding là xác định xem *receive word* `c'(x)` có phải là bội của `g(x)` hay không:
+                    - Thực hiện bằng cách chia `c'(x)` với `g(x)` và kiểm tra phần dư `r(x)`.
                     - Vì đa thức chia (*polynomial division*) là một toán tử tuyến tính (*linear operation*) nên symdrome `g(x)` chỉ phụ thuộc và *error pattern*.
                     - Nguyên lí của CRC:
-                        - Nếu `g(x)` là all-zero polynomial thì quá trình truyền có thể không có lỗi hoặc có lỗi nhưng không phát hiện được.
-                        - Nếu `g(x)` là non-zero thì ít nhất có xảy ra một lỗi.
+                        - Nếu `r(x)` là all-zero polynomial thì quá trình truyền có thể không có lỗi hoặc có lỗi nhưng không phát hiện được.
+                        - Nếu `r(x)` là non-zero thì ít nhất có xảy ra một lỗi.
                     - Các code mạnh hơn cố gắng sửa lỗi và sử dụng *syndrome* để xác định vị trí lỗi và giá trị của nhiều lỗi.
 
 
@@ -89,25 +98,55 @@
 
 -  Cyclic redundancy check (CRC) codes <<  Cyclic codes << Linear block codes
 
-## CRC
-- generator polynomial = divisor
-- message = dividend
-- result = remainder
+### 1.2. CRC Coding
 
 - *CRC codes* là một tập con của *Cyclic codes* và sử dụng *Systematic codes*.
     - Quy ước bit bên trái nhất đại diện cho bậc cao nhất của đa thức (polynomial).
     - `m(x)`: message polynomial.
     - `c(x)`: code word polynomial.
     - `g(x)`: generator polynomial.
+    - `c'(x)`: received message.
 
     ```
     c(x) = m(x)*g(x) = m(x)*x^(n-k) + r(x)  /* systematic form */
 
-    r(x) = m(x)*x^(n-k) % g(x)  /* CRC bits */
+    r(x) = m(x)*x^(n-k) % g(x)              /* CRC bits */
     ```
 
     - Transmitted message `c(x)` chứa k bits thông tin, theo sau bởi (n-k) CRC bits:
     ```
-    c(x) = m_(k-1)*x^(n-1) + .. + m_0*x^(n-k) + r_(n-k-1)*x^(n-k-1) + r_0
+    c(x) =  [m_(k-1)*x^(n-1) + .. + m_0*x^(n-k)] + [r_(n-k-1)*x^(n-k-1) + ... + r_0]
     ```
 
+    - Quá trình decode, kiểm tra phần dư của phép chia `c'(x)` với `g(x)`:
+        - Nếu là all-zero polynomial thì quá trình truyền có thể không có lỗi hoặc có lỗi nhưng không phát hiện được.
+        - Nếu là non-zero thì ít nhất có xảy ra một lỗi.
+
+### 1.3. Thuật toán cho tính toán CRC
+
+#### 1.3.1. Bitwise Algorithm (CRCB)
+
+- Bitwise algorithm (CRCB) là một các triển khai phần mềm đơn giản tương tự phương pháp phần cứng sử dụng linear feedback shift register (LFSR)
+
+- Thuật toán phần mềm:
+    1. CRC <-- 0
+    2. Dịch bit tiếp theo của message vào CRC, nếu bit ngoài cùng bên trái của CRC bằng 1 thì  CRC <-- CRC XOR G. (G = Generator polynomial)
+    3. Lặp lại bước 2 cho tới khi đã dịch tất cả các bit của message mở rộng (m'(x) = x_alpha * c(x) + b(x)).
+
+- Có thể tăng tốc độ tính bằng cách dịch nhiều bit cùng lúc để làm giảm số lần lặp nhưng không được lớn hơn bậc của G.
+- Sử dụng các giá trị được tính toán trước (**lookup table**) giúp tăng đáng kể tốc độ nhưng sẽ đánh đổi bằng bộ nhớ.
+
+#### 1.3.2. Lookup Table Algorithms
+
+- Code word: `c(x) = x^(n-k)*m(x) + r(x) = a(x)*g(x) + r(x)`
+    - Với `r(x)` là CRC polynomial của input message `m(x)`.
+
+- Mở rộng message bằng `alpha` bits: `m'(x) = x^alpha * c(x) + b(x)`
+    - Với `b(x) = b_(alpha-1)*x^(alpha-1) + ... + b_0` là alpha-bit mới được thêm.
+
+- CRC của message mở rộng - `r'(x)`:
+    ```
+    x^(n-k)*m'(x) = x^(n-k)*[x^alpha*c(x) + b(x)] = x^(n-k)*b(x) + x^alpha*a(x)*g(x) + x^alpha*r(x)
+
+    r'(x) = x^(n-k)*m'(x) % g(x) = R_(g(x))[x^(n-k)*m'(x)] = R_(g(x))[x^(n-k)*b(x) +  x^alpha*r(x)]
+    ```
