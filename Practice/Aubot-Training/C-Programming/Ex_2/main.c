@@ -41,12 +41,11 @@ int32_t frame_parse(uint8_t *raw_frame, frame_typdedef *frame){
     strcpy(str, (char*)raw_frame);
 
     /* Start Byte */
-    printf("Begin.\n");
     token = strtok((char*)str, "|0x");
     while (token != NULL)
     {
         for (int i = 0; token[i] != '\0'; i++) {
-            if (!isdigit(token[i])) 
+            if ((token[i] < '0') && (token[i] > '9') && (token[i] < 'a') && (token[i] > 'z') && (token[i] < 'A') && (token[i] > 'Z')) 
                 return -1;
         }
 
@@ -66,11 +65,10 @@ int32_t frame_parse(uint8_t *raw_frame, frame_typdedef *frame){
         return ret;
     }
     
-    printf("Start Byte\n");
     /* Length Byte */
     token = strtok(NULL, "|0x");
     for (int i = 0; token[i] != '\0'; i++) {
-        if (!isdigit(token[i])) 
+        if ((token[i] < '0') && (token[i] > '9') && (token[i] < 'a') && (token[i] > 'z') && (token[i] < 'A') && (token[i] > 'Z'))
             return -1;
     }
 
@@ -84,7 +82,6 @@ int32_t frame_parse(uint8_t *raw_frame, frame_typdedef *frame){
         goto end;
     }
     
-    printf("Length Byte %d\n", frame->length_byte);
     /* Data Bytes */
     for (uint8_t i = 0; i < frame->length_byte; i++)
     {
@@ -95,10 +92,9 @@ int32_t frame_parse(uint8_t *raw_frame, frame_typdedef *frame){
             ret = -1;
             goto free_data;
         }
-        printf("i = %d\n", i);
         
         for (int i = 0; token[i] != '\0'; i++) {
-            if (!isdigit(token[i])) {
+            if ((token[i] < '0') && (token[i] > '9') && (token[i] < 'a') && (token[i] > 'z') && (token[i] < 'A') && (token[i] > 'Z')) {
                 ret = -1 ;
                 goto free_data;
             }
@@ -109,11 +105,10 @@ int32_t frame_parse(uint8_t *raw_frame, frame_typdedef *frame){
 
     }
 
-    printf("Data Bytes\n");
     /* Stop Byte */
     token = strtok(NULL, "|0x");
     for (int i = 0; token[i] != '\0'; i++) {
-        if (!isdigit(token[i])) {
+        if ((token[i] < '0') && (token[i] > '9') && (token[i] < 'a') && (token[i] > 'z') && (token[i] < 'A') && (token[i] > 'Z')) {
             ret = -1 ;
             goto free_data;
         }
@@ -132,14 +127,18 @@ int32_t frame_parse(uint8_t *raw_frame, frame_typdedef *frame){
         ret = -1;
         goto free_data;
     }
-    
-    goto end;
 
+    goto free_str_cpy;
 free_data:
-    free(str);
-    str = NULL;
     free(frame->data_byte);
     frame->data_byte = NULL;
+
+free_str_cpy:
+    if (str != NULL) {
+        free(str);
+    }
+    str = NULL;
+    
 end:
     return ret;
 }
@@ -156,17 +155,17 @@ int main(int argc, char* argv[])
     // {
         frame_typdedef frame;
         ret = frame_parse((uint8_t *)received_frames_buffer, &frame);
-        if (ret != 0)
+        printf("Ret = %d\n", ret);
+        if (ret == 0)
         {
             for (uint8_t i = 0; i < frame.length_byte; i++)
             {
                 printf(" 0x%02x", frame.data_byte[i]);
             }
-            
         }
         // token = strtok(NULL, "\n");
     // }
     
 
-    return 0;
+    return ret;
 }
