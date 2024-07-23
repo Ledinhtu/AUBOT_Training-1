@@ -16,14 +16,15 @@ typedef struct {
     uint8_t end_byte;
 } frame_typdedef;
 
-typedef enum {
-    IDLE,
-    RECEIVE_LENGTH_BYTE,
-    RECEIVE_DATA,
-} frame_state;
+// typedef enum {
+//     IDLE,
+//     RECEIVE_LENGTH_BYTE,
+//     RECEIVE_DATA,
+// } frame_state;
 
-
-
+/*!
+ * 
+ */
 int32_t frame_parse(uint8_t *raw_frame, frame_typdedef *frame){
 
     char *token;
@@ -144,6 +145,15 @@ end:
 }
 
 
+/*!
+ * 
+ */
+void free_frame(frame_typdedef *frame) {
+    if(frame) {
+        free(frame->data_byte);
+    }
+}
+
 int main(int argc, char* argv[])
 {
     int32_t ret = 0;
@@ -166,6 +176,6 @@ int main(int argc, char* argv[])
         // token = strtok(NULL, "\n");
     // }
     
-
+    free_frame(&frame);
     return ret;
 }
