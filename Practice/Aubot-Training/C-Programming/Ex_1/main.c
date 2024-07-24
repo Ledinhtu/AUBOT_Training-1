@@ -12,6 +12,16 @@
 #define AGV_VERSION "AB2023"
 #define AGV_RFID_CODE "IMUS"
 
+/*!
+ *  @brief Kiem tra AGV co cac thong so phu hop hay khong.
+ *
+ *  @param agv: Con tro toi agv_typdedef structure tuong ung cho doi tuong can kiem tra.
+ * 
+ *  @retval Ma loi:
+ *              -1: Tham so khong hop le
+ *              1:  AGV chua tham so khong hop le.
+ *              0:  AGV co tat ca cac tham so hop le.
+ */
 int8_t check_agv(agv_typdedef *agv)
 {
     if (agv == NULL)
@@ -29,7 +39,6 @@ int8_t check_agv(agv_typdedef *agv)
     
     return 1;
 }
-
 
 
 agv_typdedef agv_arr[AGV_ARR_LENGTH];
@@ -80,7 +89,7 @@ int main(int argc, char* argv[])
             printf("\tInvalid Battery parameter!\n");
         }
 
-        while (1)   /* current speed */
+        while (1)  /* Current speed */
         {
             printf("\tEnter current speed: ");
             scanf("%d", &current_speed);
@@ -91,7 +100,7 @@ int main(int argc, char* argv[])
             printf("\tInvalid current speed parameter!\n");
         }
 
-        while (1) /* RFID cod */
+        while (1) /* RFID code */
         {
             printf("\tEnter RFID code: ");
             scanf("%s", RFID_code);

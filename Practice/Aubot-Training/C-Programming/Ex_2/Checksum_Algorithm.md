@@ -7,6 +7,7 @@
 ## 1. Cyclic Redundancy Check (CRC)
 - Reference:
     1. [Cyclic Redundancy Check Computation: An Implementation Using the TMS320C54x](https://www.ti.com/lit/an/spra530/spra530.pdf?ts=1721705653636&ref_url=https%253A%252F%252Fwww.google.com%252F)
+    2. [DIGITAL COMMUNICATION SYSTEMS Lecture #5](https://ocw.mit.edu/courses/6-02-introduction-to-eecs-ii-digital-communication-systems-fall-2012/ed6b842b98d72676fe98cdfc334e2ed2_MIT6_02F12_lec05.pdf)
 
 ### 1.1. Introduction
 
@@ -152,3 +153,33 @@
 
     r'(x) = x^(n-k)*m'(x) % g(x) = R_(g(x))[x^(n-k)*m'(x)] = R_(g(x))[x^(n-k)*b(x) +  x^alpha*r(x)]
     ```
+.....
+
+##### 1 - Standard Lookup Table Algorithm
+
+- Ý tưởng đằng sau thuật toán *standard lookup table* là tính toán trước các giá trị CRC của tất cả các *augmented bits combinations*, nên sẽ có `2^alpha*(n-k)` bit word value.
+
+- Thuật toán với `alpha < (n-k)`:
+    1. CRC <- 0,  `(r_(n-k-1),...,r_0) = (0,..,0)'.
+    2. (α input bits) XOR  ( r_(n-k-1), ... , r_(n-k-a)).
+    3. CRC =  (lookup table giá trị bước 2) XOR (r_(alpha-1),..,r_0).
+    4. Lặp lại bước 2) và 3) cho tới khi hết message.
+
+- Thuật toán với `alpha < (n-k)`:
+    1. CRC <- 0,  `(r_(n-k-1),...,r_0) = (0,..,0)'.
+    2. (α input bits) XOR  ( r_(n-k-1), ... , r_0).
+    3. CRC =  (lookup table giá trị bước 2).
+    4. Lặp lại bước 2) và 3) cho tới khi hết message.
+
+##### 2 -  Reduced Lookup Table Algorithm
+- Đây là một biến thể của thuật toán *standard lookup table* phù hợp hơn cho các application có yêu cầu khắt khe về memory.
+
+- Thuật toán với `alpha < (n-k)`
+    1. CRC <- 0, `(r_(n-k-1),...,r_0) = (0,..,0)`
+    2. (alpha input bits) XOR `(r_(n-k-1),...,r_(n-k-alpha))`
+    3. on each bit of this value (α bits), if it is equal to 1 then find the corresponding value in the lookup table and XOR the CRC register content with it
+    4. CRC <- (lookup table value) XOR `(r_(alpha-1),...,r_(0))`
+    5. Lặp lại bước 2) tới 4) cho tới khi hết message.
+
+
+

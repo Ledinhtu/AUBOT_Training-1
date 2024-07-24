@@ -3,6 +3,15 @@
 #include <stdint.h>
 #include <stdlib.h>  
 
+/*!
+ *  @brief Phan tich chuoi IPv4 thanh cac octet.
+ *  @param ipaddr: Chuoi IP v4.
+ *  @param  a, b, c, d: Con tro de luu tru cac octets.
+ *  @retval Ma loi:
+ *          -2: Hanh dong khong xac dinh.
+ *          -1: Tham so khong hop le.
+ *           0: Phan tich thanh cong, khong co loi, cac octet da tach duoc luu trong cac tham so a, b, c, d.
+ */
 int32_t ip4_addr_parse(uint8_t *ipaddr, uint8_t *a, uint8_t *b, uint8_t *c, uint8_t *d)
 {
     uint8_t dots = 0;
