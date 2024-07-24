@@ -141,7 +141,9 @@
 - Code word: `c(x) = x^(n-k)*m(x) + r(x) = a(x)*g(x) + r(x)`
     - Với `r(x)` là CRC polynomial của input message `m(x)`.
 
-- Mở rộng message bằng `alpha` bits: `m'(x) = x^alpha * c(x) + b(x)`
+- Mở rộng message bằng `alpha` bits: 
+    - `alpha = n - k`
+    - `m'(x) = x^alpha * c(x) + b(x)`
     - Với `b(x) = b_(alpha-1)*x^(alpha-1) + ... + b_0` là alpha-bit mới được thêm.
 
 - CRC của message mở rộng - `r'(x)`:

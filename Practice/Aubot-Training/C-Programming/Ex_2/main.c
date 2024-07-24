@@ -154,6 +154,25 @@ void free_frame(frame_typdedef *frame) {
     }
 }
 
+/*!
+ * 
+ */
+int32_t basic_checksum(uint8_t *data, uint64_t len)
+{
+    if (data == NULL)
+    {
+        return -1;
+    }
+    
+    uint8_t checksum = 0;
+    for (uint64_t i = 0; i < len; i++)
+    {
+        checksum += data[i];
+    }
+    
+    return checksum;
+}
+
 
 
 int main(int argc, char* argv[])
@@ -167,7 +186,7 @@ int main(int argc, char* argv[])
     // {
         frame_typdedef frame;
         ret = frame_parse((uint8_t *)received_frames_buffer, &frame);
-        printf("Ret = %d\n", ret);
+        // printf("Ret = %d\n", ret);
         if (ret == 0)
         {
             for (uint8_t i = 0; i < frame.length_byte; i++)
@@ -177,6 +196,15 @@ int main(int argc, char* argv[])
         }
         // token = strtok(NULL, "\n");
     // }
+
+    uint8_t checksum = basic_checksum(frame.data_byte, frame.length_byte);
+    if (checksum >= 0) {
+        printf("\nBasic checksum: %d\n", checksum);
+    } else {
+        printf("\nInvalid parameter.\n");
+    }
+    
+    
     
     free_frame(&frame);
     return ret;
