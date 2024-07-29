@@ -9,7 +9,6 @@
 
   <project>
     <PathAndName>.\BlinkLED\BlinkLED.uvprojx</PathAndName>
-    <NodeIsActive>1</NodeIsActive>
   </project>
 
   <project>
@@ -18,6 +17,7 @@
 
   <project>
     <PathAndName>.\BlinkLED_cusSPL\BlinkLED_cusSPL.uvprojx</PathAndName>
+    <NodeIsActive>1</NodeIsActive>
     <NodeIsExpanded>1</NodeIsExpanded>
   </project>
 

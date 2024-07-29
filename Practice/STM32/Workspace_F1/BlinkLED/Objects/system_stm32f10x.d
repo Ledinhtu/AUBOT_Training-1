@@ -1,4 +1,4 @@
-.\objects\system_stm32f10x.o: src\system_stm32f10x.c
+.\objects\system_stm32f10x.o: RTE\Device\STM32F103C8\system_stm32f10x.c
 .\objects\system_stm32f10x.o: C:\Users\User\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.3.0\Device\Include\stm32f10x.h
 .\objects\system_stm32f10x.o: .\RTE\_BlinkLED\RTE_Components.h
 .\objects\system_stm32f10x.o: C:\Users\User\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include\core_cm3.h
