@@ -1,0 +1,44 @@
+Bài 1: Viết một chương trình quản lý các loại động vật bằng struct trong C
+
+typedef enum {
+	MALE,
+	FEMALE,
+	DONT_KNOW,
+} SEX;
+
+typedef struct {
+	char name[20];
+	SEX sex;
+	void (*makeASound)(void);
+} animal_typdedef;
+
+/**
+  * @brief  Ham thuc hien hanh dong keu cua meo
+  * @param  None
+  * @retval None
+  */
+void catSound(void) {
+	printf("Meo meo\n");
+}
+
+/**
+  * @brief  Ham thuc hien hanh dong keu cua cho
+  * @param  None
+  * @retval None
+  */
+void dogSound(void) {
+	printf("Gau gau\n");
+}
+
+/**
+  * @brief  Ham thuc hien hanh dong keu cua khi
+  * @param  None
+  * @retval None
+  */
+void monkeySound(void) {
+	printf("Kec kec\n");
+}
+
+Hãy khai báo và khởi tạo 3 đối tượng có kiểu là animal_typdedef. Mỗi đối tượng là một loại 
+động vật khác nhau trong 3 loài mèo, chó, khỉ. Sao cho với đối tượng mèo, khi gọi hàm makeASound sẽ gọi đến
+hàm catSound, với đối tượng chó khi gọi hàm makeASound sẽ gọi hàm dogSound,....

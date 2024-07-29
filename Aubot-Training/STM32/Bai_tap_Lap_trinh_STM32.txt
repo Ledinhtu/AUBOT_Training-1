@@ -1,0 +1,39 @@
+Bài tập: Tạo thư viện nút nhấn để sử dụng trên STM32F103C8T6 hoặc STM32F407ZET6
+Thư viện bao gồm hàm khởi tạo GPIOs cho nút nhấn, các hàm callback và hàm handle.
+
+Ví dụ về cấu trúc sử dụng:
+Bước 1: Gọi hàm Init để khởi tạo GPIO làm Input cho nút nhấn
+Bước 2: Định nghĩa các hàm callback để xử lý các sự kiện như nhấn nhả nhanh, nhấn nút, nhả nút, nhấn giữ lâu quá 3s, double click,....
+Bước 3: Gọi hàm handle trong while(1) để xử lý dữ liệu từ nút nhấn, từ đó biết trạng thái để gọi các hàm callback ở bước 2.
+
+Chương trình main sẽ như sau:
+#include "Button.h"
+
+void pressShortButton(void){
+	printf("Ban vua nhan nha nhanh\n");
+}
+
+void pressButton(void){
+	printf("Ban vua nhan nut\n");
+}
+
+void releaseButton(void){
+	printf("Ban vua nha nut\n");
+}
+
+void holdButton(void){				//Hiện tại đang mặc định nhấn giữ đủ 3s
+	printf("Ban vua nhan giu nut\n");
+}
+
+void doubleClickButton(void){
+	printf("Ban vua nhap dup nut bam\n");
+}
+
+int main(void) {
+	button_init(GPIOA, GPIO_Pin_1, Pull_Up);
+	while(1) {
+		buttonHandle();
+	}
+	return 0;
+}
+
