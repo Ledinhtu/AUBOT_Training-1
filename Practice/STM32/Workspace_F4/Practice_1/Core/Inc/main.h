@@ -28,6 +28,15 @@
 
 /* Exported types ------------------------------------------------------------*/
 /* Exported constants --------------------------------------------------------*/
+#define LED1_PORT GPIOD
+#define LED1_PIN	GPIO_Pin_3
+
+#define LED2_PORT GPIOD
+#define LED2_PIN	GPIO_Pin_4
+
+#define LED3_PORT GPIOD
+#define LED3_PIN	GPIO_Pin_5
+
 /* Exported macro ------------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
 void TimingDelay_Decrement(void);

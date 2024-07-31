@@ -13,12 +13,12 @@
 
   <project>
     <PathAndName>.\BlinkLED_HAL\MDK-ARM\BlinkLED_HAL.uvprojx</PathAndName>
+    <NodeIsExpanded>1</NodeIsExpanded>
   </project>
 
   <project>
     <PathAndName>.\BlinkLED_cusSPL\BlinkLED_cusSPL.uvprojx</PathAndName>
     <NodeIsActive>1</NodeIsActive>
-    <NodeIsExpanded>1</NodeIsExpanded>
   </project>
 
 </ProjectWorkspace>
