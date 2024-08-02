@@ -20,6 +20,7 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
+#include <string.h>
 
 /** @addtogroup Template_Project
   * @{
@@ -128,6 +129,17 @@ int main(void)
   GPIO_InitStructure.GPIO_Speed = GPIO_Speed_100MHz;
   GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;
   GPIO_Init(GPIOD, &GPIO_InitStructure);
+	
+	memset(&GPIO_InitStructure, 0, sizeof(GPIO_InitStructure));
+	
+	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOF, ENABLE);
+	/* 														INPUT_HS16 		INPUT_HS15 	INPUT_HS14 */
+	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_8 | GPIO_Pin_9 | GPIO_Pin_10;
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN;
+  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_100MHz;
+  GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_DOWN;
+	GPIO_Init(GPIOF, &GPIO_InitStructure);
+	
 
   /* To achieve GPIO toggling maximum frequency, the following  sequence is mandatory. 
      You can monitor PG6 or PG8 on the scope to measure the output signal. 
@@ -139,16 +151,41 @@ int main(void)
   while (1)
   {
     /* Set PD_3 */
-    GPIOD->BSRR = (uint32_t)(LED1_PIN | LED2_PIN | LED3_PIN);
+    // GPIOD->BSRR = (uint32_t)(LED1_PIN | LED2_PIN | LED3_PIN);
 		
-		Delay(50);
+		// Delay(50);
 		
     /* Reset PD_3 */
-    GPIOD->BSRR = (uint32_t)((LED1_PIN | LED2_PIN | LED3_PIN) << 16);
+    // GPIOD->BSRR = (uint32_t)((LED1_PIN | LED2_PIN | LED3_PIN) << 16);
 		
-		Delay(50);
+		// Delay(50);
+		
+		
+		if (GPIO_ReadInputDataBit(GPIOF, GPIO_Pin_8)) {
+			GPIOD->BSRR = (uint32_t)(LED1_PIN);
+			Delay(1);
+		} else {
+			GPIOD->BSRR = (uint32_t)((LED1_PIN) << 16);
+			Delay(1);
+		}
+		
+		if (GPIO_ReadInputDataBit(GPIOF, GPIO_Pin_9)) {
+			GPIOD->BSRR = (uint32_t)(LED2_PIN );
+			Delay(1);
+		} else {
+			GPIOD->BSRR = (uint32_t)((LED2_PIN) << 16);
+			Delay(1);
+		}
+		
+		if (GPIO_ReadInputDataBit(GPIOF, GPIO_Pin_10)) {
+			GPIOD->BSRR = (uint32_t)(LED3_PIN);
+			Delay(1);
+		} else {
+			GPIOD->BSRR = (uint32_t)((LED3_PIN) << 16);
+			Delay(1);
+		}
   }
-#endif /* MODIFY_CODE */
+#endif /* EXAMPLE_CODE */
 
 }
 
