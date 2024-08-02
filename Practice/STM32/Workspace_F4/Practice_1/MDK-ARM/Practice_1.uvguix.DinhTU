@@ -15,7 +15,7 @@
     <View>
       <WinId>38003</WinId>
       <ViewName>Registers</ViewName>
-      <TableColWidths>140 90</TableColWidths>
+      <TableColWidths>216 217</TableColWidths>
     </View>
     <View>
       <WinId>346</WinId>
@@ -93,8 +93,8 @@
       <flags>2</flags>
       <showCmd>3</showCmd>
       <MinPosition>
-        <xPos>-1</xPos>
-        <yPos>-1</yPos>
+        <xPos>-32000</xPos>
+        <yPos>-32000</yPos>
       </MinPosition>
       <MaxPosition>
         <xPos>-1</xPos>
@@ -1891,7 +1891,7 @@
         <PaneID>0</PaneID>
       </Doc>
       <Doc>
-        <Name>&lt;1&gt;..\..\..\Materials\STM32F4xx_DSP_StdPeriph_Lib_V1.9.0\Libraries\CMSIS\Device\ST\STM32F4xx\Include\stm32f4xx.h</Name>
+        <Name>D:\DinhTU\AUBOT_Training-1\Practice\STM32\Materials\STM32F4xx_DSP_StdPeriph_Lib_V1.9.0\Libraries\CMSIS\Device\ST\STM32F4xx\Include\stm32f4xx.h</Name>
         <ColumnNumber>20</ColumnNumber>
         <TopLine>26</TopLine>
         <CurrentLine>11580</CurrentLine>
@@ -1900,7 +1900,7 @@
         <PaneID>0</PaneID>
       </Doc>
       <Doc>
-        <Name>&lt;1&gt;..\Core\Inc\main.h</Name>
+        <Name>D:\DinhTU\AUBOT_Training-1\Practice\STM32\Workspace_F4\Practice_1\Core\Inc\main.h</Name>
         <ColumnNumber>26</ColumnNumber>
         <TopLine>9</TopLine>
         <CurrentLine>33</CurrentLine>
