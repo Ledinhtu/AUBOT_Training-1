@@ -33,6 +33,10 @@
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
 /* Private function prototypes -----------------------------------------------*/
+void vPortSVCHandler( void );
+void xPortPendSVHandler( void );
+void xPortSysTickHandler( void );
+
 /* Private functions ---------------------------------------------------------*/
 
 /******************************************************************************/
@@ -107,6 +111,7 @@ void UsageFault_Handler(void)
   */
 void SVC_Handler(void)
 {
+	vPortSVCHandler();
 }
 
 /**
@@ -125,6 +130,7 @@ void DebugMon_Handler(void)
   */
 void PendSV_Handler(void)
 {
+	xPortPendSVHandler();
 }
 
 /**
@@ -134,8 +140,9 @@ void PendSV_Handler(void)
   */
 void SysTick_Handler(void)
 {
-  TimingDelay_Decrement();
+  xPortSysTickHandler();
 }
+
 
 /******************************************************************************/
 /*                 STM32F4xx Peripherals Interrupt Handlers                   */
@@ -149,12 +156,33 @@ void SysTick_Handler(void)
   * @param  None
   * @retval None
   */
-/*void PPP_IRQHandler(void)
+void PPP_IRQHandler(void)
 {
-}*/
+	
+}
+
+
+/**
+  * @brief  This function handles TIM3 global interrupt request.
+  * @param  None
+  * @retval None
+  */
+void TIM7_IRQHandler(void)
+{
+  if (TIM_GetITStatus(TIM7, TIM_IT_Update) != RESET)
+  {
+    TIM_ClearITPendingBit(TIM7, TIM_IT_Update);
+
+		TimingDelay_Decrement();
+		
+		while(0);
+  }
+}
+
 
 /**
   * @}
   */ 
+
 
 
