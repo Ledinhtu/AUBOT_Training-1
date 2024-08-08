@@ -33,6 +33,7 @@
 /* Scheduler includes. */
 #include "FreeRTOS.h"
 #include "task.h"
+#include "port.h"
 
 #ifndef __TARGET_FPU_VFP
     #error This port can only be used when the project options are configured to enable hardware floating point support.
@@ -130,9 +131,11 @@ void vPortSetupTimerInterrupt( void );
 /*
  * Exception handlers.
  */
+#if 0
 void xPortPendSVHandler( void );
 void xPortSysTickHandler( void );
 void vPortSVCHandler( void );
+#endif /*0*/
 
 /*
  * Start first task is a separate function so it can be tested in isolation.

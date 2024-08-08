@@ -23,6 +23,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f4xx_it.h"
 #include "main.h"
+#include "port.h"
 
 /** @addtogroup Template_Project
   * @{
@@ -30,12 +31,24 @@
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
+
+
 /* Private macro -------------------------------------------------------------*/
+
+
 /* Private variables ---------------------------------------------------------*/
+
+extern uint8_t aTxBuffer[];
+extern uint8_t aRxBuffer[];
+extern uint8_t ubNbrOfDataToTransfer;
+extern uint8_t ubNbrOfDataToRead;
+extern __IO uint8_t ubTxCounter; 
+extern __IO uint16_t uhRxCounter;
+
 /* Private function prototypes -----------------------------------------------*/
-void vPortSVCHandler( void );
-void xPortPendSVHandler( void );
-void xPortSysTickHandler( void );
+/* Private function prototypes -----------------------------------------------*/
+void TickCount_Increment(void);
+
 
 /* Private functions ---------------------------------------------------------*/
 
@@ -173,9 +186,46 @@ void TIM7_IRQHandler(void)
   {
     TIM_ClearITPendingBit(TIM7, TIM_IT_Update);
 
-		TimingDelay_Decrement();
+		TickCount_Increment();
 		
 		while(0);
+  }
+}
+
+
+/**
+  * @brief  This function handles USARTx global interrupt request.
+  * @param  None
+  * @retval None
+  */
+void USART6_IRQHandler(void)
+{
+	/* @arg USART_FLAG_RXNE: Receive data register not empty flag */
+  if(USART_GetITStatus(USART6, USART_IT_RXNE) != RESET)	
+  {
+    /* Read one byte from the receive data register */
+    aRxBuffer[uhRxCounter++] = (uint8_t)(USART_ReceiveData(USART6) & 0xFF);
+//		aRxBuffer[uhRxCounter++] = USART_ReceiveData(USART6);
+		USART_SendData(USART6, aRxBuffer[uhRxCounter-1]);
+
+    if(uhRxCounter == ubNbrOfDataToRead)
+    {
+      /* Disable the USART6 Receive interrupt */
+      USART_ITConfig(USART6, USART_IT_RXNE, DISABLE);
+    }
+  }
+
+	/* @arg USART_FLAG_TXE:  Transmit data register empty flag */
+  if(USART_GetITStatus(USART6, USART_IT_TXE) != RESET)
+  {   
+    /* Write one byte to the transmit data register */
+    USART_SendData(USART6, aTxBuffer[ubTxCounter++]);
+
+    if(ubTxCounter == ubNbrOfDataToTransfer)
+    {
+      /* Disable the USART6 Transmit interrupt */
+      USART_ITConfig(USART6, USART_IT_TXE, DISABLE);
+    }
   }
 }
 

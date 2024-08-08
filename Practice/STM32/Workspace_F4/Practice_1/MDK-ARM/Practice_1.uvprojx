@@ -337,7 +337,7 @@
             <v6Rtti>0</v6Rtti>
             <VariousControls>
               <MiscControls></MiscControls>
-              <Define>USE_STDPERIPH_DRIVER, STM32F40_41xxx, HSE_VALUE=8000000</Define>
+              <Define>USE_STDPERIPH_DRIVER, STM32F40_41xxx, HSE_VALUE=8000000, APP_MAIN</Define>
               <Undefine></Undefine>
               <IncludePath>..\Core\Inc;..\..\..\Materials\STM32F4xx_DSP_StdPeriph_Lib_V1.9.0\Libraries\CMSIS\Device\ST\STM32F4xx\Include;..\..\..\Materials\STM32F4xx_DSP_StdPeriph_Lib_V1.9.0\Libraries\STM32F4xx_StdPeriph_Driver\inc;..\..\..\Materials\STM32F4xx_DSP_StdPeriph_Lib_V1.9.0\Libraries\CMSIS\Include;..\FreeRTOS\include;..\FreeRTOS\portable\RVDS\ARM_CM4F;..\FreeRTOS</IncludePath>
             </VariousControls>
@@ -417,6 +417,11 @@
               <FileName>misc.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\..\Materials\STM32F4xx_DSP_StdPeriph_Lib_V1.9.0\Libraries\STM32F4xx_StdPeriph_Driver\src\misc.c</FilePath>
+            </File>
+            <File>
+              <FileName>stm32f4xx_usart.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\Materials\STM32F4xx_DSP_StdPeriph_Lib_V1.9.0\Libraries\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_usart.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -546,6 +551,16 @@
               <FileName>app_main.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\Core\Src\app_main.c</FilePath>
+            </File>
+            <File>
+              <FileName>blink_led_main.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\blink_led_main.c</FilePath>
+            </File>
+            <File>
+              <FileName>adv_main.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\adv_main.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -988,6 +1003,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\..\Materials\STM32F4xx_DSP_StdPeriph_Lib_V1.9.0\Libraries\STM32F4xx_StdPeriph_Driver\src\misc.c</FilePath>
             </File>
+            <File>
+              <FileName>stm32f4xx_usart.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\Materials\STM32F4xx_DSP_StdPeriph_Lib_V1.9.0\Libraries\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_usart.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -1065,6 +1085,16 @@
               <FileName>app_main.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\Core\Src\app_main.c</FilePath>
+            </File>
+            <File>
+              <FileName>blink_led_main.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\blink_led_main.c</FilePath>
+            </File>
+            <File>
+              <FileName>adv_main.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\adv_main.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1507,6 +1537,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\..\Materials\STM32F4xx_DSP_StdPeriph_Lib_V1.9.0\Libraries\STM32F4xx_StdPeriph_Driver\src\misc.c</FilePath>
             </File>
+            <File>
+              <FileName>stm32f4xx_usart.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\Materials\STM32F4xx_DSP_StdPeriph_Lib_V1.9.0\Libraries\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_usart.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -1584,6 +1619,16 @@
               <FileName>app_main.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\Core\Src\app_main.c</FilePath>
+            </File>
+            <File>
+              <FileName>blink_led_main.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\blink_led_main.c</FilePath>
+            </File>
+            <File>
+              <FileName>adv_main.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\adv_main.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -2026,6 +2071,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\..\Materials\STM32F4xx_DSP_StdPeriph_Lib_V1.9.0\Libraries\STM32F4xx_StdPeriph_Driver\src\misc.c</FilePath>
             </File>
+            <File>
+              <FileName>stm32f4xx_usart.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\Materials\STM32F4xx_DSP_StdPeriph_Lib_V1.9.0\Libraries\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_usart.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -2103,6 +2153,16 @@
               <FileName>app_main.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\Core\Src\app_main.c</FilePath>
+            </File>
+            <File>
+              <FileName>blink_led_main.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\blink_led_main.c</FilePath>
+            </File>
+            <File>
+              <FileName>adv_main.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\adv_main.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -2545,6 +2605,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\..\Materials\STM32F4xx_DSP_StdPeriph_Lib_V1.9.0\Libraries\STM32F4xx_StdPeriph_Driver\src\misc.c</FilePath>
             </File>
+            <File>
+              <FileName>stm32f4xx_usart.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\Materials\STM32F4xx_DSP_StdPeriph_Lib_V1.9.0\Libraries\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_usart.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -2622,6 +2687,16 @@
               <FileName>app_main.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\Core\Src\app_main.c</FilePath>
+            </File>
+            <File>
+              <FileName>blink_led_main.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\blink_led_main.c</FilePath>
+            </File>
+            <File>
+              <FileName>adv_main.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\adv_main.c</FilePath>
             </File>
           </Files>
         </Group>
