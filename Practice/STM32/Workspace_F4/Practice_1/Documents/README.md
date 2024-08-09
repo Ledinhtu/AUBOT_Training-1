@@ -19,6 +19,7 @@
 		- 1 bus để truy cập peripheral.
 
 - 2 DMA Controller:
+<<<<<<< HEAD
 	- Mỗi DMA có **8 Streams**:
 		```Channel selection
 
@@ -63,5 +64,13 @@
 		1. Loading từ peripheral data register hoặc location in memory thông qua DMA_SxPAR hoặc DMA_SxM0AR register.
 		2. Lưu trữ data đã load từ peripheral data register hoặc location in memory thông qua DMA_SxPAR hoặc DMA_SxM0AR register.
 		3. Giảm dần DMA_SxNDTR register - chứa số transaction sẽ phải thực hiện.
+=======
+	- Mỗi DMA có 8 Streams.
+	- Mỗi stream quản lí các request truy cập memory cho 1 hoặc nhiều peripheral.
+	- Mỗi Stream có thể có tới 8 Channels (Requests).
+	- Mỗi Stream có một Arbiter để quản lí mức độ ưu tiên giữa các DMA request.
+
+- 
+>>>>>>> 05c58b762ac55577d909f46a3a3ff56d8d255164
 
 
