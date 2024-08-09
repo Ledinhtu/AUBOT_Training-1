@@ -13,7 +13,6 @@
 
   <project>
     <PathAndName>.\BlinkLED_HAL\MDK-ARM\BlinkLED_HAL.uvprojx</PathAndName>
-    <NodeIsExpanded>1</NodeIsExpanded>
   </project>
 
   <project>

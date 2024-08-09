@@ -28,8 +28,12 @@
 
 /* Exported types ------------------------------------------------------------*/
 /* Exported constants --------------------------------------------------------*/
+
 #define LED1_PORT GPIOD
 #define LED1_PIN	GPIO_Pin_3
+
+#define RED_LED_PORT 	GPIOD
+#define RED_LED_PIN		GPIO_Pin_3
 
 #define LED2_PORT GPIOD
 #define LED2_PIN	GPIO_Pin_4
@@ -37,7 +41,11 @@
 #define LED3_PORT GPIOD
 #define LED3_PIN	GPIO_Pin_5
 
+#define TXBUFFERSIZE   (countof(aTxBuffer) - 1)
+#define RXBUFFERSIZE   100
+
 /* Exported macro ------------------------------------------------------------*/
+#define countof(a)   (sizeof(a) / sizeof(*(a)))
 /* Exported functions ------------------------------------------------------- */
 void TimingDelay_Decrement(void);
 
